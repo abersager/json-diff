@@ -1,9 +1,35 @@
+# Fork-specific Features
+
+This repository is a fork of the original [JSON Diff](https://github.com/zgrossbart/jdd) project, adding the following functionality:
+
+## URL to JSON Conversion
+
+This fork extends JSON Diff with automatic URL parsing. When you paste a URL into either input field, it will be automatically converted into a JSON object with the following structure:
+
+```json
+{
+  "_protocol": "https",
+  "_host": "example.com",
+  "_path": "/api/data",
+  "param1": "value1",
+  "param2": ["value2", "value3"]  // Multiple values for same parameter
+}
+```
+
+This feature allows you to:
+- Compare URL structures and their query parameters
+- See differences in URL components at a glance
+- Handle multiple values for the same query parameter (stored as arrays)
+- Easily compare API endpoints and their parameters
+
+[Original README content follows]
+
 JSON Diff
 ==================================================
 
 JSON Diff expands on the amazing work by the team at [jsonlint.com](http://www.jsonlint.com) and provides a semantic compare tool for JSON documents.
 
-I often work with large documents and it's difficult to see the differences between them.  Normal text compare tools work well for finding the differences in JavaScript code, but JSON data can have many differences in the text that don't actually change the data.  
+I often work with large documents and it's difficult to see the differences between them.  Normal text compare tools work well for finding the differences in JavaScript code, but JSON data can have many differences in the text that don't actually change the data.
 
 JSON Diff sorts, formats, and compares two JSON documents to find the actual semantic differences instead of just the text ones.
 
@@ -38,7 +64,7 @@ docker run -i --name jdd -p 127.0.0.1:8080:80/tcp jdd:v1-alpine
 
 ## Load my JSON data from the Internet
 
-JSONDiff also supports two query paramaters so you can load your JSON data from the Internet instead of having to enter it into the UI.  
+JSONDiff also supports two query paramaters so you can load your JSON data from the Internet instead of having to enter it into the UI.
 
 | Parameter | Description |
 | --- | --- |
@@ -55,7 +81,7 @@ Each parameter must be a full URL and must be publicly accessible over the Inter
 
 ## Load my JSON data in the URL
 
-JSONDiff can use the two query parameters to load data embedded in the URL.  
+JSONDiff can use the two query parameters to load data embedded in the URL.
 
 | Parameter | Description |
 | --- | --- |
@@ -94,9 +120,9 @@ Thanks to some recent performance improvements from [@Pluckerpluck](https://www.
 
 ## Is JSONDiff Secure?
 
-You might notice that [http://www.jsondiff.com](http://www.jsondiff.com) doesn't run with HTTPS and ask, is JSONDiff secure?  The short answer is yes, but you shouldn't take my word for it.  
+You might notice that [http://www.jsondiff.com](http://www.jsondiff.com) doesn't run with HTTPS and ask, is JSONDiff secure?  The short answer is yes, but you shouldn't take my word for it.
 
-JSONDiff does all of the comparing in the browser.  It never sends any of your JSON data anywhere and you can run a little experiment to prove it.  
+JSONDiff does all of the comparing in the browser.  It never sends any of your JSON data anywhere and you can run a little experiment to prove it.
 
 Open the developer tools in your browser and select the Network tab.  You'll see all of the requests your browser sends.  It looks like this:
 
@@ -122,7 +148,7 @@ JSONDiff loads the following files when it first starts up:
 | `js` | This is [gtag](https://developers.google.com/tag-platform/gtagjs) support for analytics |
 | `favicon.ico` | The JSONDiff icon that shows up in the tab of your browser |
 
-JSONDiff will never load any more files.  
+JSONDiff will never load any more files.
 
 ### What data does JSONDiff send back over the Internet?
 
@@ -134,7 +160,7 @@ This readme file just gives the high level details of the security of JSONDiff. 
 
 ### Why does JSONDiff use HTTPS?
 
-Given the fact we don't send any data over the Internet you might ask why we're using HTTPS.  We don't have any data to encrypt.  
+Given the fact we don't send any data over the Internet you might ask why we're using HTTPS.  We don't have any data to encrypt.
 
 HTTPS provides encryption of the data, but it also provides verification of the identity of the site.  HTTPS guarantees that we are who we say we are and you aren't getting a man in the middle attack where a different site is pretending to be JSONDiff.com.
 
